@@ -17,7 +17,7 @@ const Schedule = () => {
 		setRequestStatus(requestStatusList.PENDING);
 		
 		getData('schedule', '')
-			.then((response: any) => {
+			.then((response: any) => {				
 				response?.json().then((data: any) => {
 					setItems([ ...data ]);
 					setRequestStatus(requestStatusList.SUCCESS);

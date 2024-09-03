@@ -1,5 +1,13 @@
 import { serverName } from '../common/constants';
 
+const errorHandler = (response: any) => {	
+	if (!response.ok) {
+		throw new Error(`HTTP error, status = ${response.status}`);
+	}
+	
+	return response;
+};
+
 /*
 * @var endPoint as String, queryData as Object
 */
@@ -21,7 +29,7 @@ export async function getData(endPoint = '', queryData = '') {
 		}
 	});
 	
-	return response;
+	return errorHandler(response);
 };
 
 /*
@@ -38,5 +46,5 @@ export async function postData(endPoint = '', data = {}) {
 		body: JSON.stringify(data)
 	});
 	
-	return response;
+	return errorHandler(response);
 };
