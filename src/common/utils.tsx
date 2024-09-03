@@ -7,3 +7,11 @@ export const dayMatch = (currentDay: string): any => {
 	
 	return dayName?.name ?? 'Not valid day';
 };
+
+export const mappingTeacherItems = (data: any) => (
+	data.map((item: any) => ({
+		id: item.id,
+		firstName: item.first_name,
+		lastName: item.last_name
+	}))
+);

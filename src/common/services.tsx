@@ -11,7 +11,7 @@ const errorHandler = (response: any) => {
 /*
 * @var endPoint as String, queryData as Object
 */
-export async function getData(endPoint = '', queryData = '') {
+export async function getData(endPoint = '', queryData = {}) {
 	const query = 
 		Object.entries(queryData)
 		.reduce((acc, item) => {

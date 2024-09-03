@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 
 import ModalComponent from '../../_commonComponents/ModalComponent/ModalComponent';
 import InputComponent from '../../_commonComponents/InputComponent/InputComponent';
-import Dropdown from './Dropdown/Dropdown';
 
 import { errorMessagesInterface } from '../../../common/settings';
 import { complexRequestStatusList, errorMessagesInitialState } from '../../../common/constants';
@@ -12,8 +11,8 @@ import { getData } from '../../../common/services';
 const title: string = 'Add new record';
 
 const dataInitialState = {
-	day: '',
-	subject: ''
+	firstName: '',
+	lastName: ''
 };
 
 const CreateRecord = (props: any) => {
@@ -26,7 +25,7 @@ const CreateRecord = (props: any) => {
 	const onModalSubmit = () => {
 		setErrorMessages(errorMessagesInitialState);
 		
-		getData('schedule/create', data)
+		getData('teachers/create', data)
 			.then(response => {
 				response?.json().then((responseData: any) => {								
 					switch (responseData.flag) {
@@ -69,8 +68,8 @@ const CreateRecord = (props: any) => {
 		setErrorMessages(errorMessagesInitialState);
 	};
 	
-	const onInputChange = (keyValue: any) => {
-		const { name, value } = keyValue;
+	const onInputChange = (e: any) => {
+		const { name, value } = e.target;
 		
 		setData(prevState => ({
 			...prevState,
@@ -95,24 +94,26 @@ const CreateRecord = (props: any) => {
 				onSubmit={onModalSubmit}
 				onClose={onModalClose}
 			>
-				<Dropdown
-					storedDays={props.storedDays}
+				<InputComponent
+					name={'firstName'}
+					defaultValue={''}
+					placeholder={'First name'}
 					onChange={onInputChange}
-					errorMessage={errorMessages.inputs?.day}
+					errorMessage={errorMessages.inputs?.firstName}
 				/>
 				
 				<br />
 				
 				<InputComponent
-					name={'subject'}
+					name={'lastName'}
 					defaultValue={''}
-					placeholder={'Subject'}
-					onChange={(e: any) => onInputChange(e.target)}
-					errorMessage={errorMessages.inputs?.subject}
+					placeholder={'Last name'}
+					onChange={onInputChange}
+					errorMessage={errorMessages.inputs?.lastName}
 				/>
 			</ModalComponent>
 		</div>
 	)
-}
+};
 
 export default CreateRecord;

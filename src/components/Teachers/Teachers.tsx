@@ -5,21 +5,22 @@ import TableComponent from './TableComponent/TableComponent';
 import CreateRecord from './CreateRecord/CreateRecord';
 import RequestStatus from '../_commonComponents/RequestStatus/RequestStatus';
 
-import { scheduleInterface } from '../../common/settings';
+import { teachersInterface } from '../../common/settings';
 import { requestStatusList, requestStatusInitialState } from '../../common/constants';
+import { mappingTeacherItems } from '../../common/utils';
 import { getData } from '../../common/services';
 
-const Schedule = () => {
-	const [items, setItems] = useState<scheduleInterface[]>([]);
+const Teachers = () => {
+	const [items, setItems] = useState<teachersInterface[]>([]);
 	const [requestStatus, setRequestStatus] = useState<requestStatusList>(requestStatusInitialState);
 	
 	const read = () => {
 		setRequestStatus(requestStatusList.PENDING);
 		
-		getData('schedule', '')
+		getData('teachers', '')
 			.then((response: any) => {				
 				response?.json().then((data: any) => {
-					setItems([ ...data ]);
+					setItems(mappingTeacherItems(data));
 					setRequestStatus(requestStatusList.SUCCESS);
 				});
 			})
@@ -34,12 +35,12 @@ const Schedule = () => {
 	}, []);
 	
 	return (
-		<section className='Schedule'>
-			<PageTitle text={'Schedule'} />
+		<section className='Teachers'>
+			<PageTitle text={'Teachers'} />
 			
 			<RequestStatus status={requestStatus} />
 			
-			{requestStatus != requestStatusList.PENDING && (
+			{requestStatus != requestStatusList.PENDING && (			
 				<CreateRecord
 					storedDays={items}
 					read={read} 
@@ -53,4 +54,4 @@ const Schedule = () => {
 	)
 }
 
-export default Schedule;
+export default Teachers;

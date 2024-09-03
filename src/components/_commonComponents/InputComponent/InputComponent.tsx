@@ -35,7 +35,7 @@ const InputComponent = (props: any) => {
 					isValid={isValid}
 				/>
 				
-				{errorMessage && (<span className='input-component__error'>{errorMessage}</span>)}
+				{errorMessage && (<span className='InputComponent__error'>{errorMessage}</span>)}
 			</Form>
 		</div>
 	)

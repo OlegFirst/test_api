@@ -10,6 +10,14 @@ export const navigationItems: navigationItemInterface[] = [
 	{
 		name: 'Schedule',
 		url: '/schedule'
+	},
+	{
+		name: 'Teachers',
+		url: '/teachers'
+	},
+	{
+		name: 'Union',
+		url: '/union'
 	}
 ];
 
@@ -20,7 +28,18 @@ export const enum requestStatusList {
 	ERROR
 };
 
+export const enum complexRequestStatusList {
+	SUCCESS = 'success',
+	FAILURE = 'failure',
+	NOT_VALIDE = 'not_valide'
+};
+
 export const requestStatusInitialState = requestStatusList.NONE;
+
+export const errorMessagesInitialState = {
+	modal: '',
+	inputs: {}
+};
 
 export const dayNames: dayNameInterface[] = [
 	{
