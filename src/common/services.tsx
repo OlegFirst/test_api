@@ -33,10 +33,8 @@ export async function postData(endPoint = '', data = {}) {
 		mode: 'no-cors',
 		cache: 'no-cache',
 		headers: {
-			'Content-Type': 'application/json',
-			// "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+			'Content-Type': 'application/json'
 		},
-		// body: JSON.stringify({ name: 33 })
 		body: JSON.stringify(data)
 	});
 	
