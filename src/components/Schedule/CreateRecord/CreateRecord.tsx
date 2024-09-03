@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import ModalComponent from '../../_commonComponents/ModalComponent/ModalComponent';
 import InputComponent from '../../_commonComponents/InputComponent/InputComponent';
 
+import { postData } from '../../../common/services';
+
 const title: string = 'Add new record';
 const dataInitialState = {
 	day: '',
@@ -18,6 +20,17 @@ const CreateRecord = () => {
 	
 	const onModalSubmit = () => {
 		console.log(data)
+		
+		postData('schedule/create', data)
+			.then(response => {
+				response?.json().then((data: any) => {
+					console.log(data)
+					// navigate('/config');
+				});
+			})
+			.catch(err => {
+				console.log('Error ', err);
+			})
 		
 		// onModalClose();
 	};
@@ -60,9 +73,9 @@ const CreateRecord = () => {
 				<br />
 				
 				<InputComponent
-					name={'object'}
+					name={'subject'}
 					defaultValue={''}
-					placeholder={'Object'}
+					placeholder={'Subject'}
 					onChange={onInputChange}
 					errorMessage={''}
 				/>
