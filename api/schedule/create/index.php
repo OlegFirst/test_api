@@ -17,51 +17,11 @@
 	
 	// Get raw data
 	$data = file_get_contents("php://input", true);
-	
-	var_dump($data);
-	
 	$res = json_decode($data, true);
-	
-	echo json_encode('============');
 	
 	var_dump($res);
 	
+	$schedule->create($res);
 	
-	echo json_encode('============');
-	
-	// echo $_SERVER["REQUEST_METHOD"];
-	// echo json_encode('============');
-	
-	
-	// if (isset($_POST)) {
-		// $data = file_get_contents("php://input", true);
-		// $res = json_decode($data, true);
-		
-		// print_r($res);
-	// }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// $schedule->create();
-	
-	// $matrix = array();
-			
-	// if ($result && $result->num_rows > 0) {				
-		// while($row = $result->fetch_assoc()) {
-			// array_push($matrix, $row);
-		// }
-	// }
-	
-	// echo json_encode($matrix);
-	// echo json_encode(true);
+	echo true;
 ?>
