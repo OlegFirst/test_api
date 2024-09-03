@@ -6,6 +6,10 @@
 	include_once '../../config/Database.php';
 	include_once '../../models/Schedule.php';
 	
+	echo 'GO';
+	
+	return;
+	
 	// Connection to Database
 	$dataBase = new Database;	
 	$dataBase->connect();
