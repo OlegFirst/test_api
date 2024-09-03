@@ -4,14 +4,14 @@
 	header('Content-Type: application/json');
 	
 	include_once '../../common/Database.php';
-	include_once '../../models/Schedule.php';
+	include_once '../../models/Union.php';
 	
 	// Connection to Database
 	$dataBase = new Database;	
 	$dataBase->connect();
 	
 	// Create model instance
-	$model = new Schedule($dataBase);
+	$model = new Union($dataBase);
 	$result = $model->read();
 	
 	$matrix = array();

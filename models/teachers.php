@@ -1,8 +1,8 @@
 <?php
-	class Schedule {
+	class Teachers {
 		// DB stuff
 		private $dataBase;
-		private $tableName = 'schedule';
+		private $tableName = 'teachers';
 		
 		public function __construct($dataBase) {
 			$this->dataBase = $dataBase;
@@ -15,19 +15,12 @@
 			return $this->dataBase->execute($query);
 		}
 		
-		// Get all subjects
-		public function readSubjects() {
-			$query = 'SELECT subject FROM ' . $this->tableName;
-			
-			return $this->dataBase->execute($query);
-		}
-		
 		// Create new record
 		public function create($queryElements) {
-			$day = $queryElements['day'];
-			$subject = $queryElements['subject'];
+			$firstName = $queryElements['firstName'];
+			$lastName = $queryElements['lastName'];
 			
-			$query = "INSERT INTO " . $this->tableName . " (id, day, subject) VALUES (NULL, '$day', '$subject')";
+			$query = "INSERT INTO " . $this->tableName . " (id, first_name, last_name) VALUES (NULL, '$firstName', '$lastName')";
 			
 			return $this->dataBase->execute($query);
 		}
