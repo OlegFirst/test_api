@@ -4,18 +4,15 @@
 	header('Content-Type: application/json');
 	
 	include_once '../../config/Database.php';
-	include_once '../../models/Test.php';
+	include_once '../../models/Schedule.php';
 	
 	// Connection to Database
 	$dataBase = new Database;	
 	$dataBase->connect();
 	
-	// TO DO:
-	// if (error)
-	
 	// Create model instance
-	$test = new Test($dataBase);
-	$result = $test->read();
+	$schedule = new Schedule($dataBase);
+	$result = $schedule->read();
 	
 	$matrix = array();
 			
@@ -25,15 +22,5 @@
 		}
 	}
 	
-	print_r($matrix);
-	
-	return;
-	
-	$count = $result->rowCount();
-	
-	if ($result->rowCount() > 0) {
-		echo 'many';
-	} else {
-		echo 'No records found';
-	}
+	echo json_encode($matrix);
 ?>
