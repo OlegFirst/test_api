@@ -1,5 +1,5 @@
 import { dayNames } from './constants';
-import { dayNameInterface, unionInterface, teachersInterface } from './settings';
+import { dayNameInterface } from './settings';
 
 export const dayMatch = (currentDay: string): any => {
 	const dayName: dayNameInterface | undefined =

@@ -1,5 +1,4 @@
 import Form from 'react-bootstrap/Form';
-import Badge from 'react-bootstrap/Badge';
 
 import './SubjectsDropdown.scss';
 
@@ -24,7 +23,7 @@ const SubjectsDropdown = (props: any) => {
 				<option value={''} disabled={false}>Select subject, please</option>
 			
 				{unionItems.map((item: unionInterface, index: number) => {
-					const { scheduleId, day, subject, firstName, lastName } = item;
+					const { day, subject, firstName, lastName } = item;
 					
 					let message = 
 						!firstName ? subject : subject + ' / Teacher: ' + firstName + ' ' + lastName;

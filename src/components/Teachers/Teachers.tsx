@@ -40,7 +40,7 @@ const Teachers = () => {
 			
 			<RequestStatus status={requestStatus} />
 			
-			{requestStatus != requestStatusList.PENDING && (			
+			{requestStatus !== requestStatusList.PENDING && (			
 				<CreateRecord
 					storedDays={items}
 					read={read} 

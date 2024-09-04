@@ -8,7 +8,6 @@ const InputComponent = (props: any) => {
 		defaultValue,
 		placeholder = '',
 		errorMessage,
-		isDisabled = false,
 		isValid = false
 	} = props;
 		

@@ -64,7 +64,7 @@ const Union = () => {
 			
 			<RequestStatus status={requestStatus} />
 			
-			{requestStatus != requestStatusList.PENDING && (
+			{requestStatus !== requestStatusList.PENDING && (
 				<CreateRecord 
 					unionItems={unionItems}
 					teacherItems={teacherItems}
