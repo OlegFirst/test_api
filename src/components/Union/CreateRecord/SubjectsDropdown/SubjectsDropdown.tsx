@@ -1,20 +1,21 @@
 import Form from 'react-bootstrap/Form';
+import Badge from 'react-bootstrap/Badge';
 
 import './SubjectsDropdown.scss';
 
-import { scheduleInterface } from '../../../../common/settings';
+import { unionInterface } from '../../../../common/settings';
 
 const SubjectsDropdown = (props: any) => {
 	const {
-		scheduleItems,
+		unionItems,
 		errorMessage
 	} = props;
 	
 	const onChange = (e: any) => {
-		// props.onChange({
-			// name: 'day',
-			// value: e.currentTarget.value
-		// });
+		props.onChange({
+			name: 'day',
+			value: e.currentTarget.value
+		});
 	};
 	
 	return (
@@ -22,21 +23,24 @@ const SubjectsDropdown = (props: any) => {
 			<Form.Select aria-label="Default select example" onChange={onChange}>
 				<option value={''} disabled={false}>Select subject, please</option>
 			
-				{scheduleItems.map((item: scheduleInterface) => {
-					const { id, subject } = item;
+				{unionItems.map((item: unionInterface, index: number) => {
+					const { scheduleId, day, subject, firstName, lastName } = item;
+					
+					const message = !firstName ? subject : subject + ', ' + firstName + ' ' + lastName;
 					
 					return (
 						<option 
-							value={subject}
-							key={id}
-						>
-							{subject}
+							value={day}
+							key={index}
+							disabled={firstName != null}
+						>						
+							{message}
 						</option>
 					)
 				})}
 			</Form.Select>
 			
-			{errorMessage && (<span className='Dropdown__error'>{errorMessage}</span>)}
+			{errorMessage && (<span className='SubjectsDropdown__error'>{errorMessage}</span>)}
 		</div>
 	)
 }

@@ -4,23 +4,26 @@ import PageTitle from '../_commonComponents/PageTitle/PageTitle';
 import CreateRecord from './CreateRecord/CreateRecord';
 import RequestStatus from '../_commonComponents/RequestStatus/RequestStatus';
 
-import { scheduleInterface, teachersInterface } from '../../common/settings';
+import { unionInterface, teachersInterface } from '../../common/settings';
 import { requestStatusList, requestStatusInitialState } from '../../common/constants';
-import { mappingTeacherItems } from '../../common/utils';
+import { 
+	mappingUnionItems,
+	mappingTeacherItems
+} from '../../common/utils';
 import { getData } from '../../common/services';
 
 const Union = () => {
-	const [scheduleItems, setScheduleItems] = useState<scheduleInterface[]>([]);
+	const [unionItems, setUnionItems] = useState<unionInterface[]>([]);
 	const [teacherItems, setTeacherItems] = useState<teachersInterface[]>([]);
 	const [requestStatus, setRequestStatus] = useState<requestStatusList>(requestStatusInitialState);
 	
-	const readScheduleItems = () => {
+	const readUnionItems = () => {
 		setRequestStatus(requestStatusList.PENDING);
 		
-		getData('schedule', '')
+		getData('union', '')
 			.then((response: any) => {				
 				response?.json().then((data: any) => {
-					setScheduleItems([ ...data ]);
+					setUnionItems(mappingUnionItems(data));
 					setRequestStatus(requestStatusList.SUCCESS);
 				});
 			})
@@ -47,22 +50,19 @@ const Union = () => {
 	};
 	
 	useEffect(() => {
-		readScheduleItems();
+		readUnionItems();
 		readTeacherItems();
 	}, []);
 	
-	console.log('/', scheduleItems)
-	console.log('//', teacherItems)
-	
 	return (
 		<section className='Union'>
-			<PageTitle text={'Union teacher and subject'} />
+			<PageTitle text={'Union teachers and subjects'} />
 			
 			<RequestStatus status={requestStatus} />
 			
 			{requestStatus != requestStatusList.PENDING && (
 				<CreateRecord 
-					scheduleItems={scheduleItems}
+					unionItems={unionItems}
 					teacherItems={teacherItems}
 				/>
 			)}

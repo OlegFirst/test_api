@@ -15,6 +15,15 @@ export interface teachersInterface {
 	lastName: string
 };
 
+export interface unionInterface {
+	scheduleId: number,
+	teacherId: number,
+	day: string,
+	subject: string,
+	firstName: string,
+	lastName: string
+};
+
 export interface dayNameInterface {
 	day: string,
 	name: string
