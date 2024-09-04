@@ -1,13 +1,13 @@
 <?php
 	class Database {
 		// Params
-		private $serverName = 'localhost';
-		private $userName = 'root';
-		private $password = '';
-		private $dataBaseName = 'server_api';
+		protected $serverName = 'localhost';
+		protected $userName = 'root';
+		protected $password = '';
+		protected $dataBaseName = 'server_api';
 		
 		// Connection instance
-		private $connection;
+		protected $connection;
 		
 		public function connect() {
 			$this->connection = new mysqli(

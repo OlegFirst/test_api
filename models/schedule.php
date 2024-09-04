@@ -22,6 +22,13 @@
 			return $this->dataBase->execute($query);
 		}
 		
+		// Get 'id' by 'day'
+		public function findId($day) {
+			$query = 'SELECT id FROM ' . $this->tableName . " WHERE day='$day'";
+			
+			return $this->dataBase->execute($query);
+		}
+		
 		// Create new record
 		public function create($queryElements) {
 			$day = $queryElements['day'];

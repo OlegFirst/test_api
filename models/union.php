@@ -17,5 +17,14 @@
 			
 			return $this->dataBase->execute($query);
 		}
+		
+		// Create new record
+		public function create($scheduleId, $teacherId) {			
+			$query = "INSERT INTO " . $this->tableName . " 
+								(id, schedule_id, teacher_id)
+								VALUES (NULL, '$scheduleId', '$teacherId')";
+			
+			return $this->dataBase->execute($query);
+		}
 	}
 ?>
