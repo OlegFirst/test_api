@@ -26,7 +26,9 @@ const SubjectsDropdown = (props: any) => {
 				{unionItems.map((item: unionInterface, index: number) => {
 					const { scheduleId, day, subject, firstName, lastName } = item;
 					
-					const message = !firstName ? subject : subject + ', ' + firstName + ' ' + lastName;
+					let message = 
+						!firstName ? subject : subject + ' / Teacher: ' + firstName + ' ' + lastName;
+					message = 'Subject: ' + message;
 					
 					return (
 						<option 

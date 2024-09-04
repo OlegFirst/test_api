@@ -6,6 +6,10 @@ import Alert from 'react-bootstrap/Alert';
 import SubjectsDropdown from './SubjectsDropdown/SubjectsDropdown';
 import TeachersDropdown from './TeachersDropdown/TeachersDropdown';
 
+import { errorMessagesInterface } from '../../../common/settings';
+import { complexRequestStatusList, errorMessagesInitialState } from '../../../common/constants';
+import { getData } from '../../../common/services';
+
 const dataInitialState = {
 	day: '',
 	teacherId: ''
@@ -18,6 +22,7 @@ const CreateRecord = (props: any) => {
 	} = props;
 	
 	const [data, setData] = useState<Object>(dataInitialState);
+	const [errorMessages, setErrorMessages] = useState<errorMessagesInterface>(errorMessagesInitialState);
 	
 	const onSubmit = () => {
 		setErrorMessages(errorMessagesInitialState);
@@ -27,30 +32,29 @@ const CreateRecord = (props: any) => {
 				response?.json().then((responseData: any) => {								
 					switch (responseData.flag) {
 						case complexRequestStatusList.SUCCESS:
-							// onModalClose();
-							// props.read();
+							props.read();
 							return;
 							
 						case complexRequestStatusList.FAILURE:
-							// setErrorMessages(prevState => ({
-								// ...prevState,
-								// modal: 'Saving error'
+							setErrorMessages(prevState => ({
+								...prevState,
+								modal: 'Saving error'
 							}));
 							return;
 							
 						case complexRequestStatusList.NOT_VALIDE:							
-							// responseData.validationErrors.forEach((item: any) => {
-								// setErrorMessages(prevState => ({
-									// ...prevState,
-									// inputs: {
-										// ...prevState.inputs,
-										// [item.name]: item.message
-									// }
-								// }));
-							// });
+							responseData.validationErrors.forEach((item: any) => {
+								setErrorMessages(prevState => ({
+									...prevState,
+									inputs: {
+										...prevState.inputs,
+										[item.name]: item.message
+									}
+								}));
+							});
 							return;
 							
-						// default: onModalClose();
+						default: console.log('Response flag error');
 					}
 				});
 			})
@@ -70,44 +74,50 @@ const CreateRecord = (props: any) => {
 	
 	return (
 		<section className='CreateRecord'>
-		{unionItems.length > 0
-		? (
-				<>
-					<SubjectsDropdown 
-						unionItems={unionItems}
-						onChange={onChange}
-						errorMessage={''}
-					/>
-					
-					<br />
-					
-					<TeachersDropdown 
-						teacherItems={teacherItems}
-						onChange={onChange}
-						errorMessage={''}
-					/>
-					
-					<br />
-					
-					{teacherItems.length === 0 && (
-						<Alert variant={'warning'}>
-							<h4>Add at least one teacher, please</h4>
-						</Alert>						
-					)}
-					
-					<Button 
-						className='mt-4 mb-4' 
-						variant='primary'
-						onClick={onSubmit}
-						disabled={teacherItems.length === 0}
-					>
-						Union
-					</Button>
-				</>
-			)
-		: (
-			<h4>Thera are no subjects</h4>
-		)}
+			{unionItems.length > 0
+			? (
+					<>
+						<SubjectsDropdown 
+							unionItems={unionItems}
+							onChange={onChange}
+							errorMessage={errorMessages.inputs?.day}
+						/>
+						
+						<br />
+						
+						<TeachersDropdown 
+							teacherItems={teacherItems}
+							onChange={onChange}
+							errorMessage={errorMessages.inputs?.teacherId}
+						/>
+						
+						<br />
+						
+						{teacherItems.length === 0 && (
+							<Alert variant={'warning'}>
+								<h4>Add at least one teacher, please</h4>
+							</Alert>						
+						)}
+						
+						<Button 
+							className='mt-4 mb-4' 
+							variant='primary'
+							onClick={onSubmit}
+							disabled={teacherItems.length === 0}
+						>
+							Union
+						</Button>
+					</>
+				)
+			: (
+				<h4>Thera are no subjects</h4>
+			)}
+			
+			{errorMessages?.modal && (
+				<Alert className='p-0 pt-2 m-4 text-center' variant='danger'>
+					<p>{errorMessages?.modal}</p>
+				</Alert>
+			)}
 		</section>
 	)
 }

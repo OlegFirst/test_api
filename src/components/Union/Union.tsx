@@ -49,9 +49,13 @@ const Union = () => {
 			})
 	};
 	
-	useEffect(() => {
+	const read = () => {
 		readUnionItems();
 		readTeacherItems();
+	};
+	
+	useEffect(() => {
+		read();
 	}, []);
 	
 	return (
@@ -64,6 +68,7 @@ const Union = () => {
 				<CreateRecord 
 					unionItems={unionItems}
 					teacherItems={teacherItems}
+					read={read}
 				/>
 			)}
 		</section>
